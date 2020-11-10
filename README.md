@@ -8,6 +8,27 @@
 
 `ocalver` generates strings/versions based on the status of a git repository and the current date. I attempted to get a format which is [SemVer 2.x](https://semver.org/) compliant, although as the [CalVer](https://calver.org/) definition doesn't seem strictly define it implements an opinionated interpretation of it.
 
+## Format
+
+```bash
+                                              + YEAR - 2000
+                                              |
+                                              |  + DAY OF THE YEAR
+                                              |  |
+                                              |  |   + RELEASE COUNT / DAY
+                                              |  |   |
+                                              |  |   | + PRERELEASE KEY (CONFIGURABLE)
+     + YEAR - 2000                            |  |   | |
+     |                                        |  |   | |  + PRELEASE COUNT / DAY
+     |  + DAY OF THE YEAR                     |  |   | |  |
+     |  |                                     |  |   | |  | + PRERELEASE COMMIT HASH
+     |  |   + RELEASE COUNT / DAY             |  |   | |  | |
+     +> +-> v                                 +> +-> v +> v +------>
+     20.315.0                                 20.315.0-rc.1+5971883a
+
+     ^ RELEASE                                ^ PRERELASE
+```
+
 ## TL:DR
 
 ```bash
