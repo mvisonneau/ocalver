@@ -1,0 +1,16 @@
+builds:
+  - main: ./cmd/ocalver
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+    flags:
+      - -trimpath
+
+snapshot:
+  name_template: '{{ .Tag }}-{{ .ShortCommit }}'
+
+changelog:
+  skip: true

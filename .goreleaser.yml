@@ -1,0 +1,66 @@
+before:
+  hooks:
+    - go mod download
+
+builds:
+  - main: ./cmd/ocalver
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - freebsd
+      - linux
+      - solaris
+      - windows
+    goarch:
+      - 386
+      - amd64
+      - arm64
+    flags:
+      - -trimpath
+    ignore:
+      - goos: darwin
+        goarch: 386
+
+archives:
+  - name_template: '{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}'
+    format_overrides:
+      - goos: windows
+        format: zip
+
+nfpms:
+  - maintainer: &author Maxime VISONNEAU <maxime.visonneau@gmail.com>
+    description: &description Opinionated CalVer generator
+    license: &license Apache 2.0
+    homepage: &homepage https://github.com/mvisonneau/ocalver
+    vendor: *author
+    file_name_template: '{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}'
+    formats:
+      - deb
+      - rpm
+
+brews:
+  - description: *description
+    homepage: *homepage
+    folder: Formula
+    tap:
+      owner: mvisonneau
+      name: homebrew-tap
+
+scoop:
+  description: *description
+  homepage: *homepage
+  license: *license
+  bucket:
+    owner: mvisonneau
+    name: scoops
+
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Tag }}_SHA256SUMS'
+  algorithm: sha256
+
+snapshot:
+  name_template: '{{ .Tag }}-{{ .ShortCommit }}'
+
+changelog:
+  skip: true
