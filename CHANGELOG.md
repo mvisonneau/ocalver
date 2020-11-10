@@ -7,6 +7,8 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 
 ## [Unreleased]
 
+## [v0.0.1] - 2020-11-10
+
 ### Added
 
 - Working state of the tool
@@ -16,3 +18,4 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 - README
 
 [Unreleased]: https://github.com/mvisonneau/ocalver/compare/v0.0.1...HEAD
+[v0.0.1]: https://github.com/mvisonneau/ocalver/tree/v0.0.1
