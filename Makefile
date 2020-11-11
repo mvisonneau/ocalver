@@ -61,11 +61,11 @@ build-local: ## Build the binaries using local GOOS
 
 .PHONY: build
 build: ## Build the binaries
-	goreleaser build --rm-dist
+	goreleaser build --snapshot --rm-dist
 
 .PHONY: build-linux-amd64
 build-linux-amd64: ## Build the binaries
-	goreleaser build --rm-dist -f .goreleaser.linux-amd64.yml
+	goreleaser build --snapshot --rm-dist -f .goreleaser.linux-amd64.yml
 
 .PHONY: release
 release: ## Build & release the binaries
