@@ -15,16 +15,16 @@
                                               |
                                               |  + DAY OF THE YEAR
                                               |  |
-                                              |  |   + RELEASE COUNT / DAY
+                                              |  |   + RELEASE ITERATION / DAY
                                               |  |   |
                                               |  |   | + PRERELEASE KEY (CONFIGURABLE)
      + YEAR - 2000                            |  |   | |
-     |                                        |  |   | |  + PRELEASE COUNT / DAY
+     |                                        |  |   | |  + PRELEASE ITERATION / DAY
      |  + DAY OF THE YEAR                     |  |   | |  |
      |  |                                     |  |   | |  | + PRERELEASE COMMIT HASH
-     |  |   + RELEASE COUNT / DAY             |  |   | |  | |
+     |  |   + RELEASE ITERATION / DAY         |  |   | |  | |
      +> +-> v                                 +> +-> v +> v +------>
-     20.315.0                                 20.315.0-rc.1+5971883a
+     20.315.0                                 20.315.0-rc.0+5971883a
 
      ^ RELEASE                                ^ PRERELASE
 ```

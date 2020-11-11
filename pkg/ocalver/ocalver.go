@@ -118,7 +118,7 @@ func TagsShareDate(a, b TagInfo) bool {
 func (t *TagInfo) GetPreInfo(r *git.Repository, ori TagInfo, pre string) error {
 	t.PreInfo = &PreInfo{
 		Name:      pre,
-		Iteration: 1,
+		Iteration: 0,
 	}
 
 	h, err := r.Head()
@@ -132,41 +132,32 @@ func (t *TagInfo) GetPreInfo(r *git.Repository, ori TagInfo, pre string) error {
 	}
 	t.PreInfo.CommitHash = headCommit.Hash.String()[:8]
 
+	today := time.Date(time.Now().UTC().Year(), time.Now().UTC().Month(), time.Now().UTC().Day(), 0, 0, 0, 0, time.UTC)
+	logOptions := &git.LogOptions{
+		Order: git.LogOrderCommitterTime,
+		Since: &today,
+	}
+
+	cIter, err := r.Log(logOptions)
+	if err != nil {
+		return err
+	}
+
+	var commits []plumbing.Hash
+	_ = cIter.ForEach(func(commit *object.Commit) error {
+		commits = append(commits, commit.Hash)
+		return nil
+	})
+
 	if TagsShareDate(*t, ori) && ori.Hash != (plumbing.Hash{}) {
-		tagCommit, err := r.CommitObject(ori.Hash)
-		if err != nil {
-			return err
-		}
-
-		isAncestor, err := tagCommit.IsAncestor(headCommit)
-		if err != nil {
-			return err
-		}
-
-		if isAncestor {
-			commits, err := tagCommit.MergeBase(headCommit)
-			if err != nil {
-				return nil
+		for _, commit := range commits {
+			if ori.Hash == commit {
+				break
 			}
-
-			t.PreInfo.Iteration = len(commits)
+			t.PreInfo.Iteration++
 		}
 	} else {
-		since := time.Date(time.Now().UTC().Year(), time.Now().UTC().Month(), time.Now().UTC().Day(), 0, 0, 0, 0, time.UTC)
-		commits, err := r.Log(&git.LogOptions{Since: &since})
-		if err != nil {
-			return err
-		}
-
-		var count int
-		_ = commits.ForEach(func(_ *object.Commit) error {
-			count++
-			return nil
-		})
-
-		if count > 0 {
-			t.PreInfo.Iteration = count
-		}
+		t.PreInfo.Iteration = len(commits)
 	}
 
 	return nil
