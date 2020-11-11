@@ -65,7 +65,7 @@ build: ## Build the binaries
 
 .PHONY: build-linux-amd64
 build-linux-amd64: ## Build the binaries
-	goreleaser release --snapshot --skip-publish --rm-dist -f .goreleaser.linux-amd64.yml
+	goreleaser build --rm-dist -f .goreleaser.linux-amd64.yml
 
 .PHONY: release
 release: ## Build & release the binaries
