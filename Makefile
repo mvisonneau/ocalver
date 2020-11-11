@@ -7,13 +7,13 @@ export GO111MODULE=on
 
 .PHONY: setup
 setup: ## Install required libraries/tools for build tasks
-	@command -v cover 2>&1 >/dev/null       || go get -u -v golang.org/x/tools/cmd/cover
-	@command -v goimports 2>&1 >/dev/null   || go get -u -v golang.org/x/tools/cmd/goimports
-	@command -v gosec 2>&1 >/dev/null       || go get -u -v github.com/securego/gosec/cmd/gosec
-	@command -v goveralls 2>&1 >/dev/null   || go get -u -v github.com/mattn/goveralls
-	@command -v ineffassign 2>&1 >/dev/null || go get -u -v github.com/gordonklaus/ineffassign
-	@command -v misspell 2>&1 >/dev/null    || go get -u -v github.com/client9/misspell/cmd/misspell
-	@command -v revive 2>&1 >/dev/null      || go get -u -v github.com/mgechev/revive
+	@command -v cover 2>&1 >/dev/null       || GO111MODULE=off go get -u -v golang.org/x/tools/cmd/cover
+	@command -v goimports 2>&1 >/dev/null   || GO111MODULE=off go get -u -v golang.org/x/tools/cmd/goimports
+	@command -v gosec 2>&1 >/dev/null       || GO111MODULE=off go get -u -v github.com/securego/gosec/cmd/gosec
+	@command -v goveralls 2>&1 >/dev/null   || GO111MODULE=off go get -u -v github.com/mattn/goveralls
+	@command -v ineffassign 2>&1 >/dev/null || GO111MODULE=off go get -u -v github.com/gordonklaus/ineffassign
+	@command -v misspell 2>&1 >/dev/null    || GO111MODULE=off go get -u -v github.com/client9/misspell/cmd/misspell
+	@command -v revive 2>&1 >/dev/null      || GO111MODULE=off go get -u -v github.com/mgechev/revive
 
 .PHONY: fmt
 fmt: setup ## Format source code
@@ -61,7 +61,7 @@ build-local: ## Build the binaries using local GOOS
 
 .PHONY: build
 build: ## Build the binaries
-	goreleaser release --snapshot --skip-publish --rm-dist
+	goreleaser build --rm-dist
 
 .PHONY: build-linux-amd64
 build-linux-amd64: ## Build the binaries
