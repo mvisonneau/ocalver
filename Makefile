@@ -61,19 +61,11 @@ build-local: ## Build the binaries using local GOOS
 
 .PHONY: build
 build: ## Build the binaries
-	goreleaser build --snapshot --rm-dist
-
-.PHONY: build-linux-amd64
-build-linux-amd64: ## Build the binaries
-	goreleaser build --snapshot --rm-dist -f .goreleaser.linux-amd64.yml
+	goreleaser release --snapshot --skip-publish --rm-dist
 
 .PHONY: release
 release: ## Build & release the binaries
 	goreleaser release --rm-dist
-
-.PHONY: publish-coveralls
-publish-coveralls: setup ## Publish coverage results on coveralls
-	goveralls -service drone.io -coverprofile=coverage.out
 
 .PHONY: clean
 clean: ## Remove binary if it exists
@@ -91,20 +83,15 @@ coverage-html: ## Generates coverage report and displays it in the browser
 .PHONY: dev-env
 dev-env: ## Build a local development environment using Docker
 	@docker run -it --rm \
-		-v $(shell pwd):/opt/$(NAME) \
-		-w /opt/$(NAME) \
-		-p 8080:8080 \
+		-v $(shell pwd):/go/src/github.com/mvisonneau/$(NAME) \
+		-w /go/src/github.com/mvisonneau/$(NAME) \
 		golang:1.15 \
-		/bin/bash -c 'make setup; bash'
+		/bin/bash -c 'make setup; make install; bash'
 
 .PHONY: is-git-dirty
 is-git-dirty: ## Tests if git is in a dirty state
 	@git status --porcelain
 	@test $(shell git status --porcelain | grep -c .) -eq 0
-
-.PHONY: sign-drone
-sign-drone: ## Sign Drone CI configuration
-	drone sign $(REPOSITORY) --save
 
 .PHONY: all
 all: lint test build coverage ## Test, builds and ship package for all supported platforms

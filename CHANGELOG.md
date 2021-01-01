@@ -7,6 +7,12 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 
 ## [Unreleased]
 
+## Changed
+
+- Updated all dependencies
+- Migrated from drone to github actions
+- GPG sign released artifacts checksums
+
 ## [v0.0.2] - 2020-11-11
 
 ## Changed

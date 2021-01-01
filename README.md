@@ -1,4 +1,4 @@
-# ocalver - Opinionated CalVer generator
+# 🏷 ocalver - Opinionated CalVer generator
 
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/mvisonneau/ocalver)](https://pkg.go.dev/mod/github.com/mvisonneau/ocalver)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mvisonneau/ocalver)](https://goreportcard.com/report/github.com/mvisonneau/ocalver)
@@ -71,7 +71,9 @@ Initialized empty Git repository in /tmp/demo/.git/
 ### Docker
 
 ```bash
-~$ docker run -it --rm mvisonneau/ocalver
+~$ docker run -it --rm docker.io/mvisonneau/ocalver
+or
+~$ docker run -it --rm ghcr.io/mvisonneau/ocalver
 ```
 
 ### Scoop
@@ -86,21 +88,21 @@ Initialized empty Git repository in /tmp/demo/.git/
 Have a look onto the [latest release page](https://github.com/mvisonneau/ocalver/releases/latest) to pick your flavor and version. Here is an helper to fetch the most recent one:
 
 ```bash
-~$ export GCPE_VERSION=$(curl -s "https://api.github.com/repos/mvisonneau/ocalver/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+~$ export VERSION=$(curl -s "https://api.github.com/repos/mvisonneau/ocalver/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 ```
 
 ```bash
 # Binary (eg: linux/amd64)
-~$ wget https://github.com/mvisonneau/ocalver/releases/download/${GCPE_VERSION}/ocalver_${GCPE_VERSION}_linux_amd64.tar.gz
-~$ tar zxvf ocalver_${GCPE_VERSION}_linux_amd64.tar.gz -C /usr/local/bin
+~$ wget https://github.com/mvisonneau/ocalver/releases/download/${VERSION}/ocalver_${VERSION}_linux_amd64.tar.gz
+~$ tar zxvf ocalver_${VERSION}_linux_amd64.tar.gz -C /usr/local/bin
 
 # DEB package (eg: linux/386)
-~$ wget https://github.com/mvisonneau/ocalver/releases/download/${GCPE_VERSION}/ocalver_${GCPE_VERSION}_linux_386.deb
-~$ dpkg -i ocalver_${GCPE_VERSION}_linux_386.deb
+~$ wget https://github.com/mvisonneau/ocalver/releases/download/${VERSION}/ocalver_${VERSION}_linux_386.deb
+~$ dpkg -i ocalver_${VERSION}_linux_386.deb
 
 # RPM package (eg: linux/arm64)
-~$ wget https://github.com/mvisonneau/ocalver/releases/download/${GCPE_VERSION}/ocalver_${GCPE_VERSION}_linux_arm64.rpm
-~$ rpm -ivh ocalver_${GCPE_VERSION}_linux_arm64.rpm
+~$ wget https://github.com/mvisonneau/ocalver/releases/download/${VERSION}/ocalver_${VERSION}_linux_arm64.rpm
+~$ rpm -ivh ocalver_${VERSION}_linux_arm64.rpm
 ```
 
 ## Usage
