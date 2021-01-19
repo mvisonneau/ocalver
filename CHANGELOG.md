@@ -7,6 +7,8 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 
 ## [Unreleased]
 
+## [v0.0.4] - 2021-01-19
+
 ## Changed
 
 - Fixed a bug preventing the tool from operating, not sorting the tags correctly to dermine the next one successfully
@@ -37,7 +39,8 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 - LICENSE
 - README
 
-[Unreleased]: https://github.com/mvisonneau/ocalver/compare/v0.0.3...HEAD
+[Unreleased]: https://github.com/mvisonneau/ocalver/compare/v0.0.4...HEAD
+[v0.0.4]: https://github.com/mvisonneau/ocalver/tree/v0.0.4
 [v0.0.3]: https://github.com/mvisonneau/ocalver/tree/v0.0.3
 [v0.0.2]: https://github.com/mvisonneau/ocalver/tree/v0.0.2
 [v0.0.1]: https://github.com/mvisonneau/ocalver/tree/v0.0.1
