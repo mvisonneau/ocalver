@@ -10,6 +10,7 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
+	"golang.org/x/mod/semver"
 )
 
 const (
@@ -33,7 +34,9 @@ func Generate(cfg Config) (string, error) {
 	re := getRegexp("")
 	_ = tags.ForEach(func(ref *plumbing.Reference) error {
 		if re.Match([]byte(ref.Name().Short())) {
-			mostRecentTagRef = ref
+			if mostRecentTagRef == nil || semver.Compare(fmt.Sprintf("v%s", ref.Name().Short()), fmt.Sprintf("v%s", (mostRecentTagRef.Name())[10:])) == 1 {
+				mostRecentTagRef = ref
+			}
 		}
 		return nil
 	})
