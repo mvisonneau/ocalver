@@ -10,6 +10,7 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 ## Changed
 
 - Fixed a bug preventing the tool from operating, not sorting the tags correctly to dermine the next one successfully
+- Updated all dependencies
 
 ## [v0.0.3] - 2021-01-01
 
