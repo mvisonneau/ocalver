@@ -22,7 +22,7 @@ function cleanup {
 trap cleanup EXIT
 
 # Build the binaries using a prerelease tag
-git fetch --tags -f
+git tag -d edge
 git tag -f ${PRERELEASE_TAG}
 goreleaser release \
     --rm-dist \
