@@ -24,9 +24,6 @@ jobs:
       - name: Allow arm Docker builds # https://github.com/linuxkit/linuxkit/tree/master/pkg/binfmt
         run: sudo docker run --privileged linuxkit/binfmt:v0.8
 
-      - name: Install make
-        run: sudo apt-get install make
-
       - name: Docker Login
         uses: docker/login-action@v1
         with:
@@ -44,7 +41,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.16
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v3
@@ -52,10 +49,13 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
-      - name: goreleaser
+      - name: Install goreleaser
         uses: goreleaser/goreleaser-action@v2
         with:
           version: v0.158.0
-          args: make ${{ github.ref != 'refs/heads/main' && 'pre' }}release
+          install-only: true
+      
+      - name: Run goreleaser
+        run: make ${{ github.ref != 'refs/heads/main' && 'pre' }}release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
