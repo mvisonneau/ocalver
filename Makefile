@@ -1,7 +1,6 @@
 NAME             := ocalver
 FILES            := $(shell git ls-files */*.go)
 REPOSITORY       := mvisonneau/$(NAME)
-EDGE_RELEASE_TAG := $(shell git tag | grep -E "^.*-" | sort -r | head -n1)
 .DEFAULT_GOAL    := help
 
 export GO111MODULE=on
@@ -68,26 +67,17 @@ build: ## Build the binaries
 
 .PHONY: release
 release: ## Build & release the binaries (stable)
-	git tag -d $(EDGE_RELEASE_TAG)
+	git tag -d edge
 	goreleaser release --rm-dist
 	find dist -type f -name "*.snap" -exec snapcraft upload --release stable '{}' \;
 
 .PHONY: prerelease
-prerelease: setup ## Build & prerelease the binaries on Snapcraft & Docker (edge)
-	@echo "deleting edge release: $$asset_url"
-	curl -sLX DELETE -u max:$(GITHUB_TOKEN) "$(shell curl -sL -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/$(REPOSITORY)/releases/tags/$(EDGE_RELEASE_TAG) | jq ".url")" || true
-
-	@echo "deleting edge tags: $(EDGE_RELEASE_TAG)"
-	git tag -d $(EDGE_RELEASE_TAG)
-	curl -sLX DELETE -u max:$(GITHUB_TOKEN) "https://api.github.com/repos/$(REPOSITORY)/git/refs/tags/$(EDGE_RELEASE_TAG)" || true
-
-	git tag $(shell git describe --abbrev=7 --tags --exclude=$(EDGE_RELEASE_TAG))
-	goreleaser release \
-		--rm-dist \
-		--skip-validate \
-		-f .goreleaser.pre.yml
-
-	find dist -type f -name "*.snap" -exec snapcraft upload --release edge '{}' \;
+prerelease: setup ## Build & prerelease the binaries (edge)
+	@\
+		REPOSITORY=$(REPOSITORY) \
+    	NAME=$(NAME) \
+    	GITHUB_TOKEN=$(GITHUB_TOKEN) \
+    	.github/prerelease.sh
 
 .PHONY: clean
 clean: ## Remove binary if it exists

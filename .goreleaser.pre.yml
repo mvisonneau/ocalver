@@ -27,8 +27,7 @@ archives:
         format: zip
 
 release:
-  prerelease: true
-  name_template: edge
+  disable: true
 
 snapcrafts:
   - summary: Opinionated CalVer generator

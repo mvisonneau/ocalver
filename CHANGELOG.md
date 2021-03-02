@@ -7,7 +7,7 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 
 ## [Unreleased]
 
-## [v0.0.5] - 2021-03-01
+## [v0.0.5] - 2021-03-02
 
 ## Added
 
