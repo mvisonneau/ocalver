@@ -24,6 +24,9 @@ jobs:
       - name: Allow arm Docker builds # https://github.com/linuxkit/linuxkit/tree/master/pkg/binfmt
         run: sudo docker run --privileged linuxkit/binfmt:v0.8
 
+      - name: Install make
+        run: sudo apt-get install make
+
       - name: Docker Login
         uses: docker/login-action@v1
         with:
