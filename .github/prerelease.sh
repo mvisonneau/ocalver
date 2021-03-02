@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 RELEASE_ID=$(curl -sL https://api.github.com/repos/${REPOSITORY}/releases/tags/edge | jq -r .id)
 HEAD_SHA=$(curl -sL https://api.github.com/repos/${REPOSITORY}/git/refs/heads/main | jq -r .object.sha)
@@ -30,12 +30,11 @@ goreleaser release \
     -f .goreleaser.pre.yml
 
 # Delete existing assets from the edge prerelease on GitHub
-for asset_url in $(curl -sL -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${REPOSITORY}/releases/tags/edge | jq ".assets[].url"); do
+for asset_url in $(curl -sL -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${REPOSITORY}/releases/tags/edge | jq -r ".assets[].url"); do
     echo "deleting edge release asset: ${asset_url}"
     curl -sL \
         -X DELETE \
         -u "_:${GITHUB_TOKEN}" \
-        -H "Accept: application/vnd.github.v3+json" \
         ${asset_url}
 done
 
