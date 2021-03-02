@@ -2,9 +2,10 @@
 
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/mvisonneau/ocalver)](https://pkg.go.dev/mod/github.com/mvisonneau/ocalver)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mvisonneau/ocalver)](https://goreportcard.com/report/github.com/mvisonneau/ocalver)
-[![Docker Pulls](https://img.shields.io/docker/pulls/mvisonneau/ocalver.svg)](https://hub.docker.com/r/mvisonneau/ocalver/)
-[![Build Status](https://cloud.drone.io/api/badges/mvisonneau/ocalver/status.svg)](https://cloud.drone.io/mvisonneau/ocalver)
+[![test](https://github.com/mvisonneau/ocalver/actions/workflows/test.yml/badge.svg)](https://github.com/mvisonneau/ocalver/actions/workflows/test.yml)
 [![Coverage Status](https://coveralls.io/repos/github/mvisonneau/ocalver/badge.svg?branch=main)](https://coveralls.io/github/mvisonneau/ocalver?branch=main)
+[![release](https://github.com/mvisonneau/ocalver/actions/workflows/release.yml/badge.svg)](https://github.com/mvisonneau/ocalver/actions/workflows/release.yml)
+[![ocalver](https://snapcraft.io/ocalver/badge.svg)](https://snapcraft.io/ocalver)
 
 `ocalver` generates strings/versions based on the status of a git repository and the current date. I attempted to get a format which is [SemVer 2.x](https://semver.org/) compliant, although as the [CalVer](https://calver.org/) definition doesn't seem strictly define it implements an opinionated interpretation of it.
 
@@ -60,6 +61,14 @@ Initialized empty Git repository in /tmp/demo/.git/
 
 ```bash
 ~$ go get -u github.com/mvisonneau/ocalver/cmd/ocalver
+```
+
+### Snapcraft
+
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/ocalver)
+
+```bash
+~$ snap install ocalver
 ```
 
 ### Homebrew

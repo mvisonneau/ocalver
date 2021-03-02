@@ -14,9 +14,6 @@ setup: ## Install required libraries/tools for build tasks
 	@command -v ineffassign 2>&1 >/dev/null || GO111MODULE=off go get -u -v github.com/gordonklaus/ineffassign
 	@command -v misspell 2>&1 >/dev/null    || GO111MODULE=off go get -u -v github.com/client9/misspell/cmd/misspell
 	@command -v revive 2>&1 >/dev/null      || GO111MODULE=off go get -u -v github.com/mgechev/revive
-	@command -v jq 2>&1 >/dev/null          || (echo "jq is not installed"; exit 1)
-	@command -v curl 2>&1 >/dev/null        || (echo "curl is not installed"; exit 1)
-	@command -v snapcraft 2>&1 >/dev/null   || (echo "snapcraft is not installed"; exit 1)
 
 .PHONY: fmt
 fmt: setup ## Format source code
