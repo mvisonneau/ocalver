@@ -7,6 +7,17 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 
 ## [Unreleased]
 
+## [v0.0.5] - 2021-03-01
+
+## Added
+
+- snapcraft packages
+
+## Changed
+
+- bumped go to 1.16
+- bumped all dependencies
+
 ## [v0.0.4] - 2021-01-19
 
 ## Changed
@@ -39,7 +50,8 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 - LICENSE
 - README
 
-[Unreleased]: https://github.com/mvisonneau/ocalver/compare/v0.0.4...HEAD
+[Unreleased]: https://github.com/mvisonneau/ocalver/compare/v0.0.5...HEAD
+[v0.0.5]: https://github.com/mvisonneau/ocalver/tree/v0.0.5
 [v0.0.4]: https://github.com/mvisonneau/ocalver/tree/v0.0.4
 [v0.0.3]: https://github.com/mvisonneau/ocalver/tree/v0.0.3
 [v0.0.2]: https://github.com/mvisonneau/ocalver/tree/v0.0.2

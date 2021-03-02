@@ -7,20 +7,28 @@ builds:
     env:
       - CGO_ENABLED=0
     goos:
+      - darwin
       - linux
+      - windows
     goarch:
       - 386
       - amd64
       - arm64
     flags:
       - -trimpath
+    ignore:
+      - goos: darwin
+        goarch: 386
+
+archives:
+  - name_template: '{{ .ProjectName }}_edge_{{ .Os }}_{{ .Arch }}'
+    format_overrides:
+      - goos: windows
+        format: zip
 
 release:
   prerelease: true
   name_template: edge
-
-archives:
-  - name_template: '{{ .ProjectName }}_edge_{{ .Os }}_{{ .Arch }}'
 
 snapcrafts:
   - summary: Opinionated CalVer generator
@@ -76,6 +84,18 @@ docker_manifests:
     image_templates:
       - ghcr.io/mvisonneau/ocalver:latest-amd64
       - ghcr.io/mvisonneau/ocalver:latest-arm64v8
+
+signs:
+  - artifacts: checksum
+    args:
+      [
+        '-u',
+        'C09CA9F71C5C988E65E3E5FCADEA38EDC46F25BE',
+        '--output',
+        '${signature}',
+        '--detach-sign',
+        '${artifact}',
+      ]
 
 checksum:
   name_template: '{{ .ProjectName }}_edge_sha512sums.txt'
