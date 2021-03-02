@@ -67,6 +67,10 @@ build: ## Build the binaries
 release: ## Build & release the binaries
 	goreleaser release --rm-dist
 
+.PHONY: prerelease
+prerelease:
+	VERSION=$(shell git describe --always --abbrev=7 --tags) goreleaser release --rm-dist --skip-validate -f .goreleaser.pre.yml
+
 .PHONY: clean
 clean: ## Remove binary if it exists
 	rm -f $(NAME)

@@ -7,67 +7,35 @@ builds:
     env:
       - CGO_ENABLED=0
     goos:
-      - darwin
       - linux
-      - windows
     goarch:
       - 386
       - amd64
       - arm64
     flags:
       - -trimpath
-    ignore:
-      - goos: darwin
-        goarch: 386
+
+release:
+  prerelease: true
+  name_template: edge
 
 archives:
-  - name_template: '{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}'
-    format_overrides:
-      - goos: windows
-        format: zip
-
-nfpms:
-  - maintainer: &author Maxime VISONNEAU <maxime.visonneau@gmail.com>
-    description: &description Opinionated CalVer generator
-    license: &license Apache-2.0
-    homepage: &homepage https://github.com/mvisonneau/ocalver
-    vendor: *author
-    file_name_template: '{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}'
-    formats:
-      - deb
-      - rpm
-
-brews:
-  - description: *description
-    homepage: *homepage
-    folder: Formula
-    tap:
-      owner: mvisonneau
-      name: homebrew-tap
-
-scoop:
-  description: *description
-  homepage: *homepage
-  license: *license
-  bucket:
-    owner: mvisonneau
-    name: scoops
+  - name_template: '{{ .ProjectName }}_edge_{{ .Os }}_{{ .Arch }}'
 
 snapcrafts:
-  - summary: *description
+  - summary: Opinionated CalVer generator
     description: Purpose of this tool is to generate CalVer formatted values to use as tags for your git projects.
-    license: *license
+    name_template: "{{ .ProjectName }}_{{ .Env.VERSION }}_{{ .Os }}_{{ .Arch }}"
+    license: Apache-2.0
     publish: true
     confinement: strict
-    grade: stable
+    grade: devel
     apps:
       ocalver:
         plugs: ["home"]
 
 dockers:
   - image_templates:
-      - 'docker.io/mvisonneau/ocalver:{{ .Tag }}-amd64'
-      - 'ghcr.io/mvisonneau/ocalver:{{ .Tag }}-amd64'
       - 'docker.io/mvisonneau/ocalver:latest-amd64'
       - 'ghcr.io/mvisonneau/ocalver:latest-amd64'
     ids: [ocalver]
@@ -78,14 +46,12 @@ dockers:
       - --label=org.opencontainers.image.description={{ .ProjectName }}
       - --label=org.opencontainers.image.url=https://github.com/mvisonneau/ocalver
       - --label=org.opencontainers.image.source=https://github.com/mvisonneau/ocalver
-      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.version={{ .Env.VERSION }}
       - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
       - --label=org.opencontainers.image.revision={{ .FullCommit }}
       - --label=org.opencontainers.image.licenses=Apache-2.0
 
   - image_templates:
-      - 'docker.io/mvisonneau/ocalver:{{ .Tag }}-arm64v8'
-      - 'ghcr.io/mvisonneau/ocalver:{{ .Tag }}-arm64v8'
       - 'docker.io/mvisonneau/ocalver:latest-arm64v8'
       - 'ghcr.io/mvisonneau/ocalver:latest-arm64v8'
     ids: [ocalver]
@@ -97,22 +63,12 @@ dockers:
       - --label=org.opencontainers.image.description={{ .ProjectName }}
       - --label=org.opencontainers.image.url=https://github.com/mvisonneau/ocalver
       - --label=org.opencontainers.image.source=https://github.com/mvisonneau/ocalver
-      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.version={{ .Env.VERSION }}
       - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
       - --label=org.opencontainers.image.revision={{ .FullCommit }}
       - --label=org.opencontainers.image.licenses=Apache-2.0
 
 docker_manifests:
-  - name_template: docker.io/mvisonneau/ocalver:{{ .Tag }}
-    image_templates:
-      - docker.io/mvisonneau/ocalver:{{ .Tag }}-amd64
-      - docker.io/mvisonneau/ocalver:{{ .Tag }}-arm64v8
-
-  - name_template: ghcr.io/mvisonneau/ocalver:{{ .Tag }}
-    image_templates:
-      - ghcr.io/mvisonneau/ocalver:{{ .Tag }}-amd64
-      - ghcr.io/mvisonneau/ocalver:{{ .Tag }}-arm64v8
-
   - name_template: docker.io/mvisonneau/ocalver:latest
     image_templates:
       - docker.io/mvisonneau/ocalver:latest-amd64
@@ -122,22 +78,6 @@ docker_manifests:
     image_templates:
       - ghcr.io/mvisonneau/ocalver:latest-amd64
       - ghcr.io/mvisonneau/ocalver:latest-arm64v8
-
-checksum:
-  name_template: '{{ .ProjectName }}_{{ .Tag }}_sha512sums.txt'
-  algorithm: sha512
-
-signs:
-  - artifacts: checksum
-    args:
-      [
-        '-u',
-        'C09CA9F71C5C988E65E3E5FCADEA38EDC46F25BE',
-        '--output',
-        '${signature}',
-        '--detach-sign',
-        '${artifact}',
-      ]
 
 changelog:
   skip: true

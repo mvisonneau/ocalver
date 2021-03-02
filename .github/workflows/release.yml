@@ -5,6 +5,8 @@ on:
   push:
     tags:
       - '*'
+    branches:
+      - main
 
 jobs:
   release:
@@ -47,15 +49,10 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
-      - name: Run GoReleaser
+      - name: goreleaser
         uses: goreleaser/goreleaser-action@v2
         with:
-          version: v0.149.0
-          args: release --rm-dist
+          version: v0.158.0
+          args: make ${{ github.ref != 'refs/heads/main' && 'pre' }}release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-
-      - name: Clear
-        if: always()
-        run: |
-          rm -f ${HOME}/.docker/config.json
