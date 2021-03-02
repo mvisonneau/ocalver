@@ -31,10 +31,12 @@ goreleaser release \
 
 # Delete existing assets from the edge prerelease on GitHub
 for asset_url in $(curl -sL -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${REPOSITORY}/releases/tags/edge | jq ".assets[].url"); do
-    echo "deleting edge release asset: ${asset_url}"; \
-    curl -sLX DELETE \
+    echo "deleting edge release asset: ${asset_url}"
+    curl -sL \
+        -X DELETE \
         -u "_:${GITHUB_TOKEN}" \
-        "${asset_url}";
+        -H "Accept: application/vnd.github.v3+json" \
+        ${asset_url}
 done
 
 # Upload new assets onto the edge prerelease on GitHub
