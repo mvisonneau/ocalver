@@ -16,6 +16,7 @@ setup: ## Install required libraries/tools for build tasks
 	@command -v revive 2>&1 >/dev/null      || GO111MODULE=off go get -u -v github.com/mgechev/revive
 	@command -v jq 2>&1 >/dev/null          || (echo "jq is not installed"; exit 1)
 	@command -v curl 2>&1 >/dev/null        || (echo "curl is not installed"; exit 1)
+	@command -v snapcraft 2>&1 >/dev/null   || (echo "snapcraft is not installed"; exit 1)
 
 .PHONY: fmt
 fmt: setup ## Format source code
@@ -69,7 +70,7 @@ build: ## Build the binaries
 release: ## Build & release the binaries (stable)
 	git tag -d edge
 	goreleaser release --rm-dist
-	find dist -type f -name "*.snap" -exec snapcraft upload --release stable '{}' \;
+	find dist -type f -name "*.snap" -exec snapcraft upload --release stable,edge '{}' \;
 
 .PHONY: prerelease
 prerelease: setup ## Build & prerelease the binaries (edge)
