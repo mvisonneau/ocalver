@@ -1,7 +1,7 @@
-NAME             := ocalver
-FILES            := $(shell git ls-files */*.go)
-REPOSITORY       := mvisonneau/$(NAME)
-.DEFAULT_GOAL    := help
+NAME          := ocalver
+FILES         := $(shell git ls-files */*.go)
+REPOSITORY    := mvisonneau/$(NAME)
+.DEFAULT_GOAL := help
 
 export GO111MODULE=on
 
