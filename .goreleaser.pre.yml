@@ -43,6 +43,7 @@ dockers:
   - image_templates:
       - 'docker.io/mvisonneau/ocalver:latest-amd64'
       - 'ghcr.io/mvisonneau/ocalver:latest-amd64'
+      - 'quay.io/mvisonneau/ocalver:latest-amd64'
     ids: [ocalver]
     dockerfile: Dockerfile
     build_flag_templates:
@@ -59,6 +60,7 @@ dockers:
   - image_templates:
       - 'docker.io/mvisonneau/ocalver:latest-arm64v8'
       - 'ghcr.io/mvisonneau/ocalver:latest-arm64v8'
+      - 'quay.io/mvisonneau/ocalver:latest-arm64v8'
     ids: [ocalver]
     goarch: arm64
     dockerfile: Dockerfile
@@ -83,6 +85,11 @@ docker_manifests:
     image_templates:
       - ghcr.io/mvisonneau/ocalver:latest-amd64
       - ghcr.io/mvisonneau/ocalver:latest-arm64v8
+
+  - name_template: quay.io/mvisonneau/ocalver:latest
+    image_templates:
+      - quay.io/mvisonneau/ocalver:latest-amd64
+      - quay.io/mvisonneau/ocalver:latest-arm64v8
 
 signs:
   - artifacts: checksum
