@@ -7,6 +7,10 @@ and this project adheres to [0ver](https://0ver.org) (more or less).
 
 ## [Unreleased]
 
+## Changed
+
+- Updated most dependencies / use go `1.17`
+
 ## [v0.0.5] - 2021-03-02
 
 ## Added

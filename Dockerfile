@@ -1,6 +1,4 @@
-ARG ARCH
-
-FROM ${ARCH}/busybox:1.32-glibc
+FROM busybox:1.35-glibc
 
 WORKDIR /
 
