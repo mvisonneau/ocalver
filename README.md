@@ -60,7 +60,7 @@ Initialized empty Git repository in /tmp/demo/.git/
 ### Go
 
 ```bash
-~$ go get -u github.com/mvisonneau/ocalver/cmd/ocalver
+~$ go install github.com/mvisonneau/ocalver/cmd/ocalver@latest
 ```
 
 ### Snapcraft
